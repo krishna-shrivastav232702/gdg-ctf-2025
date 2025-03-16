@@ -15,14 +15,32 @@ export const BackgroundLines = ({
   };
 }) => {
   return (
-    <div
-      className={cn(
-        "h-[20rem] md:h-screen w-full bg-white dark:bg-black",
-        className
-      )}
-    >
-      <SVG svgOptions={svgOptions} />
-      {children}
+    <div className={cn("h-[20rem] md:h-screen w-full", className)}>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "transparent",
+        }}
+      >
+        {children}
+      </div>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <SVG svgOptions={svgOptions} />
+      </div>
     </div>
   );
 };
