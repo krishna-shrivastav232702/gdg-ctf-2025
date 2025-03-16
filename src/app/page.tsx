@@ -164,6 +164,7 @@ export default function Home() {
             participants to showcase their skills by cracking a password in
             order to progress to the next track of the competition.
           </p>
+
           <div className="mt-8">
             <p className="text-lg mb-4">
               Join us in this exciting challenge and showcase your skills!
