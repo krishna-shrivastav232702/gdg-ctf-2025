@@ -1,11 +1,11 @@
-import "@fontsource/poppins";
 import { BackgroundLines } from "@/components/ui/background-lines";
+import "@fontsource/poppins";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <BackgroundLines>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white text-center p-4 font-[Poppins] bg-transparent">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-transparent text-white text-center p-4 font-[Poppins]">
         <div>
           <h1 className="text-6xl font-extrabold mb-8 p-4 bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text">
             CodeSprint 3.0 <br /> Capture The Flag
