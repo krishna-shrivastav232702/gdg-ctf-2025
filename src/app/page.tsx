@@ -22,7 +22,7 @@ export default function Home() {
             <p className="text-lg mb-4">
               Join us in this exciting challenge and showcase your skills!
             </p>
-            <Link href="/sql-form">
+            <Link href="/challenge_0">
               <button className="px-8 py-4 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer">
                 Get Started
               </button>
