@@ -6,14 +6,45 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import {useRouter} from "next/navigation";
+import toast, {Toaster} from "react-hot-toast";
+import axios from "axios";
 
 export default function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const [user, setUser] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+  })
+  const [loading, setLoading] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    
+    if (!user.username || !user.email || !user.password){
+      toast.error("Please enter all fields correctly");
+      return;
+    }
+    try {
+      setLoading(true);
+      
+      const response = await axios.post("/api/users/signup", user);
+      router.push("/login");
+      toast.success("Signup successful");
+      console.log(response.data);
+    }
+    catch (error:any) {
+      toast.error("Signup Failed");
+    }
+    finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
+       <Toaster />
     <div className="max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
     <div className="absolute inset-0 -z-10">
       <BackgroundBeams />
@@ -29,16 +60,19 @@ export default function SignupFormDemo() {
         <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
             <Label htmlFor="firstname">User name</Label>
-            <Input id="username" placeholder="johndoe" type="text" />
+            <Input id="username" placeholder="johndoe" type="text" value={user.username}
+            onChange={(e) => setUser({...user, username: e.target.value})}/>
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@email.com" type="email" />
+          <Input id="email" placeholder="example@email.com" type="email" value={user.email}
+          onChange={(e) => setUser({...user, email: e.target.value})} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="password" type="password" />
+          <Input id="password" placeholder="password" type="password" value={user.password}
+          onChange={(e) => setUser({...user, password: e.target.value})} />
         </LabelInputContainer>
 
         <button
