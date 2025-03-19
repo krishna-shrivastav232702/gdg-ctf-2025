@@ -64,15 +64,16 @@ const DATA = [
 ];
 
 const Challenges: React.FC = () => (
-  <BackgroundBeams>
+  
     <div className="min-h-screen bg-black text-white font-[Poppins]">
       <Navbar />
       <main className="px-56 py-10 text-center font-[Poppins]">
         <h1 className="text-3xl font-bold mb-8 font-[Poppins]">Challenges</h1>
         <HoverEffect items={DATA} />
       </main>
+      <BackgroundBeams />
     </div>
-  </BackgroundBeams>
+  
 );
 
 export default Challenges;
