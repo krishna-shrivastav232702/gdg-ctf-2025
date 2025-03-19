@@ -13,7 +13,7 @@
     "@fontsource/poppins": "^5.2.5",
     "@radix-ui/react-label": "^2.1.2",
     "@react-three/fiber": "^9.1.0",
-    "@tailwindcss/oxide-linux-x64-gnu": "^4.0.14",
+    "@tailwindcss/oxide": "^4.0.14",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
