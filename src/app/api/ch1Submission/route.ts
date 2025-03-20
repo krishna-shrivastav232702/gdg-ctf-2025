@@ -2,8 +2,10 @@ import { validateSolution } from "@/lib/encryption";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user.model";
 import Submission from "@/models/submission.model";
+import connectToDatabase from "@/db/db";
 
 export async function POST(req: NextRequest) {
+    await connectToDatabase();
     const body = await req.json();
     const { flag, userId, questionId } = body;
     if (!flag || !userId || !questionId) {
