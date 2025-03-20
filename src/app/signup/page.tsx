@@ -32,7 +32,10 @@ export default function SignupFormDemo() {
       const response = await axios.post("/api/users/signup", user);
       router.push("/login");
       toast.success("Signup successful");
-      console.log(response.data);
+      const {userId} = response.data;
+      if (userId) {
+        localStorage.setItem("userId", userId);
+      }
     }
     catch (error:any) {
       toast.error("Signup Failed");
