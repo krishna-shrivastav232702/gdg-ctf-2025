@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
             password: hashedPassword
     });
       await newUser.save();
-      return NextResponse.json({ message: "User created successfully" });
+      return NextResponse.json({userId: newUser._id, message: "User created successfully" });
         
         
           
