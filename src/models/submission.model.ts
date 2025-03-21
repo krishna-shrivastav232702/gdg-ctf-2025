@@ -23,7 +23,7 @@ const submissionSchema = new mongoose.Schema({
     }
 });
 
-const Submission = mongoose.model("Submission",submissionSchema);
+const Submission = mongoose.models.Submission || mongoose.model("Submission", submissionSchema);
 
 export default Submission;
 
