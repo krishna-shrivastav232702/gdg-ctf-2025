@@ -5,8 +5,57 @@ import { Navbar } from "@/components/ui/navbar";
 import "@fontsource/poppins";
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function challenge1() {
+  const questionId = "q1";
+  const [encryptedText, setEncryptedText] = React.useState("");
+  const [flag, setFlag] = React.useState("");
+
+  async function getEncryptedText() {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        console.error("No userId found in localStorage");
+        return;
+      }
+      const response = await axios.post("/api/challenge1", {userId});
+      setEncryptedText(response.data.encryptedFlag);
+    }
+    catch (error) {
+      console.error("Error: Something went wrong");
+    }
+  }
+  React.useEffect(() => {
+    getEncryptedText();
+  }, []);
+
+  async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+
+    const userId = localStorage.getItem("userId");
+    if (!userId){
+      console.error("user not logged in, userId not found");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/api/ch1Submission", {flag, userId, questionId});
+      
+      if (response.data.success) {
+        console.log(response.data.message);
+        toast.success(response.data.message);   // FIX TOAST
+      }
+      else {
+        toast.error(response.data.message);
+      }
+    }
+    catch (error){
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <Navbar />
@@ -50,7 +99,7 @@ export default function challenge1() {
                   You have intercepted an encrypted message
                   <br />
                   <div className="font-bold text-green-800 select-text">
-                    0a1d06530e180406531108031c011704175348
+                    {encryptedText || "Loading..."}
                   </div>
                   <br />
                   This message has been encrypted using an XOR cipher. Your task
@@ -92,16 +141,18 @@ export default function challenge1() {
           <input
             type="text"
             placeholder="Answer here!"
-            className="rounded-lg border-2 border-teal-500 focus:ring-4 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200"
+            value={flag}
+            onChange={(e) => setFlag(e.target.value)}
+            className="rounded-lg border-1 border-teal-500 focus:ring-2 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200"
           />
         </div>
-        <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5">
+        <button type="submit" onClick={handleSubmit} className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5">
           Submit
         </button>
         <br />
         <br />
         <Link href="/challenge2">
-          <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-10 ">
+          <button className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-10 ">
             Go to challenge 2 <span className="font-bold">→</span>
           </button>
         </Link>
