@@ -9,7 +9,7 @@ import { Navbar } from "@/components/ui/navbar";
 const DATA = [
   {
     title: "Challenge1",
-    link: "/challenge1",
+    link: "/challenges/challenge_1",
     description: "XOR Encryption-Decryption",
   },
   {

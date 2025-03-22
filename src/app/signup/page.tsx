@@ -47,7 +47,6 @@ export default function SignupFormDemo() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-       <Toaster />
     <div className="max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
     <div className="absolute inset-0 -z-10">
       <BackgroundBeams />
