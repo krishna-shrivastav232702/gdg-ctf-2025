@@ -6,7 +6,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 export default function Challenge0() {
   return (
-    <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mb-20">
+    <div className="w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mb-20">
       <div className="w-full p-4 flex flex-col items-center">
         <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 text-center font-[Poppins] font-bold py-4 pb-2">
           You think getting started is easy?
@@ -58,7 +58,7 @@ interface GridItemProps {
 const GridItem = ({ area, title, description }: GridItemProps) => {
   return (
     <li className={`min-h-[9rem] list-none ${area}`}>
-      <div className="relative h-full rounded-2.5xl p-2 md:rounded-3xl md:p-3">
+      <div className="relative h-full rounded-2.5xl p-2 md:rounded-3xl md:p-3 z-30 bg-black">
         <GlowingEffect
           blur={0}
           borderWidth={3}
