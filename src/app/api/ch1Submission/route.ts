@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const isValid = validateSolution(flag);
 
     if (isValid) {
-      await User.findByIdAndUpdate(userId, { $inc: { capturedFlags: 1 } });
+      await User.findByIdAndUpdate(userId, { $inc: { capturedFlags: 1,TotalPoints:10 } });
       const submission = new Submission({
         userId,
         questionId,
