@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: true,
-          message: "Congratulations! You found the correct flag!",
+          message: "Congratulations! You found the flag!",
         },
         { status: 200 }
       );
