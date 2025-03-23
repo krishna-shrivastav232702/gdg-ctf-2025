@@ -7,6 +7,7 @@ import React from "react";
 import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { confetti } from "tsparticles-confetti";
 
 export default function challenge1() {
   const questionId = "q1";
@@ -45,7 +46,12 @@ export default function challenge1() {
       
       if (response.data.success) {
         console.log(response.data.message);
-        toast.success(response.data.message);   // FIX TOAST
+        toast.success(response.data.message);
+        confetti({
+          particleCount: 100,
+          spread: 160,
+          origin: { y: 0.6 },
+        });
       }
       else {
         toast.error(response.data.message);
@@ -59,6 +65,7 @@ export default function challenge1() {
   return (
     <div>
       <Navbar />
+      <Toaster />
       <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mt-24">
         <div className="w-full p-4 flex flex-col items-center">
           <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 text-center font-[Poppins] font-bold py-4 pt-0">
@@ -73,7 +80,7 @@ export default function challenge1() {
               title="XOR Decryption Challenge"
               description={
                 <div>
-                  "This challenge involves decrypting a hidden message encrypted
+                  This challenge involves decrypting a hidden message encrypted
                   using an XOR cipher. XOR encryption is a simple yet powerful
                   method often used in computer security. This guide will walk
                   you through the decryption process step by step, even if you
@@ -88,7 +95,7 @@ export default function challenge1() {
                   (1) when the inputs are different and false (0) when they are
                   the same. In encryption, XOR is commonly used to combine data
                   with a key, making it hard to decipher without the correct
-                  key."
+                  key.
                 </div>
               }
             />
@@ -130,7 +137,7 @@ export default function challenge1() {
                     <li>Set Input type to Hex.</li>
                     <li>Enter the correct Key.</li>
                     <li>Set Output type to Text and decrypt the message.</li>
-                    <li>The decrypted text will contain the flag.</li>
+                    <li>The decrypted text is the flag.</li>
                   </ol>
                   💡 Hint: The key is something you use to identify yourself.
                 </div>
