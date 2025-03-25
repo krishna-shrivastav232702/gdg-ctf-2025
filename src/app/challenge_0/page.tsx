@@ -3,10 +3,29 @@ import "@fontsource/poppins";
 import React from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Challenge0() {
+  const [input, setInput] = React.useState("");
+  const router = useRouter();
+
+  async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+
+  const correctAnswer = "nohtyp";
+
+  if (input.trim() === correctAnswer) {
+    toast.success("Correct! Redirecting...");
+    setTimeout(() => router.push("/signup")); 
+  } else {
+    toast.error("Incorrect answer! Try again.");
+  }
+
+  }
   return (
     <div className="w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mb-20">
+      <Toaster/>
       <div className="w-full p-4 flex flex-col items-center">
         <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 text-center font-[Poppins] font-bold py-4 pb-2">
           You think getting started is easy?
@@ -32,16 +51,20 @@ export default function Challenge0() {
           <GridItem
             area="col-span-10 col-start-2 row-span-1"
             title="Hint:"
-            description="In crunch situations, sometimes all you gotta do is to INSPECT the situation!"
+            description={<div>In crunch situations, sometimes all you gotta do is to <u>inspect</u> the situation!
+            <br/> <span style={{ display: "none" }}>Write your answer backwards!</span>
+            </div>}
           />
         </ul>
         <input
           type="text"
           placeholder="answer here!"
-          className="rounded-lg border-2 border-teal-500 focus:ring-4 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200 mt-9"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="rounded-lg border-1 border-teal-500 focus:ring-2 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200 mt-9"
         />
       </div>
-      <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer">
+      <button onClick={handleSubmit} className="relative z-10 px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer">
         Submit
       </button>
       <BackgroundBeams />
