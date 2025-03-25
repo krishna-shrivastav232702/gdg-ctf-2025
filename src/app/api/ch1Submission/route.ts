@@ -18,7 +18,21 @@ export async function POST(req: NextRequest) {
     const isValid = validateSolution(flag);
 
     if (isValid) {
-      await User.findByIdAndUpdate(userId, { $inc: { capturedFlags: 1,TotalPoints:10 } });
+      const existingCorrectSubmission = await Submission.findOne({
+        userId,
+        questionId,
+        isCorrect: true
+      });
+      if (existingCorrectSubmission) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "You have already solved this challenge!",
+          },
+          { status: 409 }
+        );
+      }
+      await User.findByIdAndUpdate(userId, { $inc: { capturedFlags: 1, TotalPoints: 5 } });
       const submission = new Submission({
         userId,
         questionId,
