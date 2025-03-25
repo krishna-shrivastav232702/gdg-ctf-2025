@@ -10,7 +10,7 @@ export default function Home() {
           <h1 className="text-6xl font-extrabold mb-8 p-4 bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text">
             CodeSprint 3.0 <br /> Capture The Flag
           </h1>
-          <p className="text-lg leading-relaxed max-w-lg mx-auto">
+          <p className="text-lg leading-relaxed max-w-lg mx-auto text-black dark:text-white">
             CTF - Capture the Flag is an exciting website that serves as the
             second round of the highly anticipated event,{" "}
             <strong>GDSC Code Sprint</strong>. This engaging platform challenges
@@ -19,7 +19,7 @@ export default function Home() {
           </p>
 
           <div className="mt-8">
-            <p className="text-lg mb-4">
+            <p className="text-lg mb-4 text-black dark:text-white">
               Join us in this exciting challenge and showcase your skills!
             </p>
             <Link href="/challenge_0">
