@@ -2,15 +2,17 @@
 import "@fontsource/poppins";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/userContext";
 
 export default function LoginFormDemo() {
+  const { updateUser } = useContext(UserContext);
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -25,13 +27,17 @@ export default function LoginFormDemo() {
     try {
       setLoading(true);
 
-      const response = await axios.post("/api/users/login", {
+      const { data } = await axios.post("/api/users/login", {
         email,
         password,
       });
+
+      // Update the user context
+      updateUser(data.user.userName);
+
       router.push("/challenges");
       toast.success("Login successful");
-      console.log(response.data);
+      console.log(data);
     } catch (error: any) {
       toast.error("Login Failed");
     } finally {
