@@ -9,14 +9,13 @@ import { cn } from "@/lib/utils";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { UserContext } from "@/context/userContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginFormDemo() {
-  const { updateUser } = useContext(UserContext);
+  const {login}=useAuth();
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -25,24 +24,11 @@ export default function LoginFormDemo() {
       return;
     }
     try {
-      setLoading(true);
-
-      const { data } = await axios.post("/api/users/login", {
-        email,
-        password,
-      });
-
-      // Update the user context
-      updateUser(data.user.userName);
-
+      await login(email, password);
       router.push("/challenges");
-      toast.success("Login successful");
-      console.log(data);
     } catch (error: any) {
       toast.error("Login Failed");
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   return (

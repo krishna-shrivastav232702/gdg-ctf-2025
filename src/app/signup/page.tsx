@@ -9,15 +9,16 @@ import { cn } from "@/lib/utils";
 import {useRouter} from "next/navigation";
 import toast, {Toaster} from "react-hot-toast";
 import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignupFormDemo() {
+  const {signup}=useAuth();
   const router = useRouter();
   const [user, setUser] = React.useState({
     username: "",
     email: "",
     password: "",
   })
-  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,21 +28,12 @@ export default function SignupFormDemo() {
       return;
     }
     try {
-      setLoading(true);
       
-      const response = await axios.post("/api/users/signup", user);
+      await signup(user.username,user.email,user.password);
       router.push("/login");
-      toast.success("Signup successful");
-      const {userId} = response.data;
-      if (userId) {
-        localStorage.setItem("userId", userId);
-      }
     }
     catch (error:any) {
       toast.error("Signup Failed");
-    }
-    finally {
-      setLoading(false);
     }
   };
 

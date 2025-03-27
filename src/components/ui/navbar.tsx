@@ -7,11 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { useContext } from "react";
-import { UserContext } from "@/context/userContext";
+import { useAuth } from "@/context/AuthContext";
 
 export const Navbar: React.FC = () => {
-  const { user } = useContext(UserContext);
-
+  const { user } = useAuth();
   return (
     <nav className="bg-black text-white p-4 flex items-center justify-between fixed z-40 font-[Poppins] top-0 left-0 w-full">
       <div className="flex items-center space-x-2">
@@ -30,7 +29,7 @@ export const Navbar: React.FC = () => {
           Challenge 1
         </Link>
         <Link
-          href="/challenge2"
+          href="/challenges/challenge_2"
           className="hover:text-gray-400 cursor-pointer font-[Poppins]"
         >
           Challenge 2
@@ -41,15 +40,21 @@ export const Navbar: React.FC = () => {
         >
           Challenge 3
         </Link>
-        <Link
-          href="/flags"
+        <div
+          
           className="hover:text-gray-400 cursor-pointer font-[Poppins]"
         >
-          Flags Captured
-        </Link>
+          Total points : {user?.totalPoints}
+        </div>
+        <div
+          
+          className="hover:text-gray-400 cursor-pointer font-[Poppins]"
+        >
+          Flags Captured : {user?.capturedFlags}
+        </div>
         <div className="flex items-center space-x-2 font-[Poppins]">
           <FaUserCircle className="text-2xl" />
-          <span>{user.name}</span>
+          <span>{user?.username}</span>
         </div>
       </div>
     </nav>

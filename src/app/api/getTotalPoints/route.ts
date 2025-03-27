@@ -23,6 +23,8 @@ export async function POST(req:NextRequest){
         }
         return NextResponse.json(
             {
+                userId,
+                username:user.username,
                 totalPoints:user.TotalPoints,
                 capturedFlags:user.capturedFlags,
             },

@@ -24,11 +24,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
-    const tokendata = {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-    };
+    // const tokendata = {
+    //   id: user._id,
+    //   username: user.username,
+    //   email: user.email,
+    // };
 
     //   jwt.sign(tokendata,process.env.TOKEN_SECRET!, {expiresIn: 3600});
 
@@ -36,8 +36,10 @@ export async function POST(request: NextRequest) {
       message: "Login successful",
       success: true,
       user: {
-        userName: user.username,
-        email: user.email,
+        username: user.username,
+        userId:user._id,
+        totalPoints:user.TotalPoints,
+        capturedFlags:user.capturedFlags,
       },
     });
 

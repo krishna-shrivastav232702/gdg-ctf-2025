@@ -8,8 +8,10 @@ import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { confetti } from "tsparticles-confetti";
+import { useAuth } from "@/context/AuthContext";
 
 export default function challenge1() {
+  const {refreshUserData} = useAuth();
   const questionId = "q1";
   const [encryptedText, setEncryptedText] = React.useState("");
   const [flag, setFlag] = React.useState("");
@@ -52,6 +54,7 @@ export default function challenge1() {
           spread: 160,
           origin: { y: 0.6 },
         });
+        refreshUserData();
       }
       else {
         toast.error(response.data.message);
@@ -158,7 +161,7 @@ export default function challenge1() {
         </button>
         <br />
         <br />
-        <Link href="/challenge2">
+        <Link href="/challenges/challenge_2">
           <button className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-10 ">
             Go to challenge 2 <span className="font-bold">→</span>
           </button>

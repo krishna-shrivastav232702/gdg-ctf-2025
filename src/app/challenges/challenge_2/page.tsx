@@ -8,8 +8,10 @@ import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { confetti } from "tsparticles-confetti";
+import { useAuth } from "@/context/AuthContext";
 
 export default function challenge2() {
+  const {refreshUserData} = useAuth();
   const [flag1, setFlag1] = React.useState("");
   const [flag, setFlag2] = React.useState("");
   const questionId = "q2";
@@ -55,6 +57,7 @@ export default function challenge2() {
           spread: 160,
           origin: { y: 0.6 },
         });
+        refreshUserData();
       }
       else {
         toast.error(response.data.message);
@@ -156,9 +159,9 @@ export default function challenge2() {
             <button type="submit" onClick={handleSubmit2} className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5">
               Submit
             </button>
-            <Link href="/challenge2">
+            <Link href="/challenges/challenge_3">
               <button className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mt-5 mb-10 ">
-                Go to challenge 2 <span className="font-bold">→</span>
+                Go to challenge 3 <span className="font-bold">→</span>
               </button>
             </Link>
             <BackgroundBeams />

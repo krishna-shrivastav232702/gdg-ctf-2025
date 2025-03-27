@@ -14,12 +14,12 @@ const DATA = [
   },
   {
     title: "Challenge2",
-    link: "/challenge2",
+    link: "/challenges/challenge_2",
     description: "React Downgrade Quest",
   },
   {
     title: "Challenge3",
-    link: "/challenge3",
+    link: "/challenges/challenge_3",
     description: "Hidden Clues in the image",
   },
 ];
