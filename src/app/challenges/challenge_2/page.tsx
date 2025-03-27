@@ -50,7 +50,6 @@ export default function challenge2() {
       const response = await axios.post("/api/challenge2", {flag, userId, questionId});
       
       if (response.data.success) {
-        console.log(response.data.message);
         toast.success(response.data.message);
         confetti({
           particleCount: 100,

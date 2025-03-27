@@ -9,8 +9,10 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { confetti } from "tsparticles-confetti";
+import { useAuth } from "@/context/AuthContext";
 
 export default function challenge3() {
+  const {refreshUserData} = useAuth();
   const [answer, setAnswer] = React.useState("");
   const onSubmit = () => {
     if (!answer.length) {
@@ -33,6 +35,7 @@ export default function challenge3() {
             spread: 160,
             origin: { y: 0.6 },
           });
+          refreshUserData();
         } else {
           toast.error(data.message);
         }

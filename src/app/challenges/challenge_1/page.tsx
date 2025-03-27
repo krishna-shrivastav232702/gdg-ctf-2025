@@ -51,7 +51,6 @@ export default function challenge1() {
       });
 
       if (response.data.success) {
-        console.log(response.data.message);
         toast.success(response.data.message);
         confetti({
           particleCount: 100,
