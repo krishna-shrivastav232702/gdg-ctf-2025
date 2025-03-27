@@ -11,7 +11,7 @@ import { confetti } from "tsparticles-confetti";
 import { useAuth } from "@/context/AuthContext";
 
 export default function challenge1() {
-  const {refreshUserData} = useAuth();
+  const { refreshUserData } = useAuth();
   const questionId = "q1";
   const [encryptedText, setEncryptedText] = React.useState("");
   const [flag, setFlag] = React.useState("");
@@ -23,13 +23,13 @@ export default function challenge1() {
         console.error("No userId found in localStorage");
         return;
       }
-      const response = await axios.post("/api/challenge1", {userId});
+      const response = await axios.post("/api/challenge1", { userId });
       setEncryptedText(response.data.encryptedFlag);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error: Something went wrong");
     }
   }
+
   React.useEffect(() => {
     getEncryptedText();
   }, []);
@@ -38,14 +38,18 @@ export default function challenge1() {
     e.preventDefault();
 
     const userId = localStorage.getItem("userId");
-    if (!userId){
+    if (!userId) {
       console.error("user not logged in, userId not found");
       return;
     }
 
     try {
-      const response = await axios.post("/api/ch1Submission", {flag, userId, questionId});
-      
+      const response = await axios.post("/api/ch1Submission", {
+        flag,
+        userId,
+        questionId,
+      });
+
       if (response.data.success) {
         console.log(response.data.message);
         toast.success(response.data.message);
@@ -55,12 +59,10 @@ export default function challenge1() {
           origin: { y: 0.6 },
         });
         refreshUserData();
-      }
-      else {
+      } else {
         toast.error(response.data.message);
       }
-    }
-    catch (error){
+    } catch (error) {
       console.log(error);
     }
   }
@@ -156,7 +158,11 @@ export default function challenge1() {
             className="rounded-lg border-1 border-teal-500 focus:ring-2 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200"
           />
         </div>
-        <button type="submit" onClick={handleSubmit} className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5">
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5"
+        >
           Submit
         </button>
         <br />

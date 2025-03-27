@@ -5,12 +5,46 @@ import { Navbar } from "@/components/ui/navbar";
 import "@fontsource/poppins";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { confetti } from "tsparticles-confetti";
 
 export default function challenge3() {
+  const [answer, setAnswer] = React.useState("");
+  const onSubmit = () => {
+    if (!answer.length) {
+      toast.error("Please enter a valid answer!");
+      return;
+    }
+    const userId = localStorage.getItem("userId");
+
+    axios
+      .post("/api/challenge3", {
+        flag: answer,
+        userId,
+        questionId: "q3",
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          toast.success(data.message);
+          confetti({
+            particleCount: 100,
+            spread: 160,
+            origin: { y: 0.6 },
+          });
+        } else {
+          toast.error(data.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <div>
       <Navbar />
-      <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mt-24">
+      <div className=" w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mt-24 mb-20">
         <div className="w-full p-4 flex flex-col items-center">
           <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 text-center font-[Poppins] font-bold py-4 pt-0">
             Challenge 3
@@ -25,10 +59,9 @@ export default function challenge3() {
               description={
                 <div>
                   In this challenge, you'll analyze an image to find a hidden
-                  flag. This type of challenge often involves techniques like
-                  steganography and metadata analysis. This guide will help you
-                  understand these concepts and the tools needed to uncover the
-                  hidden data.
+                  flag. This type of challenge often involves technique like
+                  steganography. This guide will help you understand these
+                  concepts and the tools needed to uncover the hidden data.
                 </div>
               }
             />
@@ -49,28 +82,18 @@ export default function challenge3() {
               title="Instructions:"
               description={
                 <div>
-                  <ol className="list-decimal list-inside">
-                    <li>
-                      Figure out the correct decryption key—it’s something
-                      unique to you.
-                    </li>
-                    <li>
-                      Use an XOR decryption tool, such as{" "}
-                      <Link
-                        href="https://md5decrypt.net/en/Xor/"
-                        target="_blank"
-                        className="text-blue-400"
-                      >
-                        this one
-                      </Link>
-                      .
-                    </li>
-                    <li>Set Input type to Hex.</li>
-                    <li>Enter the correct Key.</li>
-                    <li>Set Output type to Text and decrypt the message.</li>
-                    <li>The decrypted text will contain the flag.</li>
-                  </ol>
-                  💡 Hint: The key is something you use to identify yourself.
+                  <h3 className="pt-0.5 text-xl/[1.375rem] font-semibold font-[Poppins] text-balance text-black dark:text-white">
+                    <code>Find the hidden flag in the image</code>
+                  </h3>
+                  <br />
+                  <Image
+                    src={require("../../imgchallenge3.png")}
+                    width={500}
+                    height={150}
+                    alt="A description of the image"
+                    unoptimized={true}
+                  />
+                  Analyze the image to find the hidden flag.
                 </div>
               }
             />
@@ -80,18 +103,23 @@ export default function challenge3() {
             type="text"
             placeholder="Answer here!"
             className="rounded-lg border-2 border-teal-500 focus:ring-4 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200"
+            onChange={(e) => setAnswer(e.target.value)}
+            value={answer}
           />
         </div>
-        <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5">
+        <button
+          className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5 z-10"
+          onClick={onSubmit}
+        >
           Submit
         </button>
         <br />
         <br />
-        <Link href="/challenge2">
+        {/* <Link href="/challenge2">
           <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-10 ">
             Go to challenge 2 <span className="font-bold">→</span>
           </button>
-        </Link>
+        </Link> */}
         <BackgroundBeams />
       </div>
     </div>
