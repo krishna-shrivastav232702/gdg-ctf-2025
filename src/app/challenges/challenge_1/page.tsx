@@ -43,27 +43,30 @@ export default function challenge1() {
       return;
     }
 
-    try {
-      const response = await axios.post("/api/ch1Submission", {
+    axios
+      .post("/api/ch1Submission", {
         flag,
         userId,
         questionId,
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          toast.success(data.message);
+          confetti({
+            particleCount: 100,
+            spread: 160,
+            origin: { y: 0.6 },
+          });
+          refreshUserData();
+        } else {
+          toast.error(data.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(
+          err.response?.data?.message ?? "Something went wrong! Try again!"
+        );
       });
-
-      if (response.data.success) {
-        toast.success(response.data.message);
-        confetti({
-          particleCount: 100,
-          spread: 160,
-          origin: { y: 0.6 },
-        });
-        refreshUserData();
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   return (
@@ -160,7 +163,7 @@ export default function challenge1() {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5"
+          className="px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5 z-20"
         >
           Submit
         </button>
