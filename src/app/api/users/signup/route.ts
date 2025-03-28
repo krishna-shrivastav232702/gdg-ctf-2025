@@ -4,7 +4,6 @@ import User from "@/models/user.model";
 
 import bcryptjs from "bcryptjs";
 
-
 export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
@@ -16,10 +15,11 @@ export async function POST(request: NextRequest) {
 
     const user = await User.findOne({ email: email });
 
-
-
     if (user) {
-      return NextResponse.json({ error: "Email already exists" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Email already exists" },
+        { status: 400 }
+      );
     }
     const passwordString = String(password);
     const salt = await bcryptjs.genSalt(10);
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const newUser = new User({
       username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
     await newUser.save();
     return NextResponse.json({
@@ -39,12 +39,14 @@ export async function POST(request: NextRequest) {
         userId: newUser._id,
         totalPoints: newUser.TotalPoints,
         capturedFlags: newUser.capturedFlags,
+        challenge3Attempts: newUser.challenge3Attempts,
       },
     });
   } catch (error) {
     console.error("Database connection failed:", error);
-    return NextResponse.json({ error: "Database connection failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Database connection failed" },
+      { status: 500 }
+    );
   }
-
-
 }

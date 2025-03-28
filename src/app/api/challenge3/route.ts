@@ -14,6 +14,23 @@ export async function POST(req: NextRequest) {
     );
   }
   try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    if (user.challenge3Attempts > 2) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You have already used all your attempts!",
+        },
+        { status: 409 }
+      );
+    }
+
+    await user.updateOne({ $inc: { challenge3Attempts: 1 } });
+
     const existingCorrectSubmission = await Submission.findOne({
       userId,
       questionId,
@@ -29,7 +46,7 @@ export async function POST(req: NextRequest) {
       );
     }
     if (flag == "coDEsprint") {
-      await User.findByIdAndUpdate(userId, {
+      await user.updateOne({
         $inc: { capturedFlags: 1, TotalPoints: 12 },
       });
       const submission = new Submission({

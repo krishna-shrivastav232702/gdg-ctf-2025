@@ -37,9 +37,10 @@ export async function POST(request: NextRequest) {
       success: true,
       user: {
         username: user.username,
-        userId:user._id,
-        totalPoints:user.TotalPoints,
-        capturedFlags:user.capturedFlags,
+        userId: user._id,
+        totalPoints: user.TotalPoints,
+        capturedFlags: user.capturedFlags,
+        challenge3Attempts: user.challenge3Attempts,
       },
     });
 

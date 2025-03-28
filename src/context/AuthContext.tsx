@@ -1,14 +1,15 @@
-"use client"
-import { createContext,useState,useEffect,useContext } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+"use client";
+import { createContext, useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type User = {
   userId?: string;
   username?: string;
   totalPoints?: number;
   capturedFlags?: number;
+  challenge3Attempts?: number;
 };
 
 type AuthContextType = {
@@ -23,7 +24,6 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,14 +32,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const loadUser = async () => {
-      const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem("userId");
       if (userId) {
         try {
-          const response = await axios.post("/api/getTotalPoints",{userId});
+          const response = await axios.post("/api/getTotalPoints", { userId });
           setUser(response.data);
         } catch (err) {
-          console.error('Failed to load user:', err);
-          setError('Failed to load user data');
+          console.error("Failed to load user:", err);
+          setError("Failed to load user data");
         }
       }
       setLoading(false);
@@ -51,15 +51,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/users/login", { email, password });
-      
-      localStorage.setItem('userId', data.user.userId);
-      
+      const { data } = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("userId", data.user.userId);
+
       setUser({
         userId: data.user.userId,
         username: data.user.username,
         totalPoints: data.user.totalPoints || 0,
-        capturedFlags: data.user.capturedFlags || 0
+        capturedFlags: data.user.capturedFlags || 0,
       });
 
       router.push("/challenges");
@@ -76,14 +79,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signup = async (username: string, email: string, password: string) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/signup", { 
-        username, 
-        email, 
-        password 
+      const response = await axios.post("/api/users/signup", {
+        username,
+        email,
+        password,
       });
 
       if (response.data.user.userId) {
-        localStorage.setItem('userId', response.data.user.userId);
+        localStorage.setItem("userId", response.data.user.userId);
       }
       toast.success("Signup successful");
     } catch (error: any) {
@@ -95,14 +98,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-
   const logout = () => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem("userId");
     setUser(null);
     router.push("/login");
     toast.success("Logged out successfully");
   };
-
 
   const refreshUserData = async () => {
     const userId = localStorage.getItem("userId");
@@ -113,34 +114,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (err) {
         console.error("Failed to refresh user data:", err);
         setError("Failed to refresh user data");
-        localStorage.removeItem('userId');
+        localStorage.removeItem("userId");
         router.push("/login");
       }
     }
   };
-  
+
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        loading, 
-        error, 
-        login, 
-        signup, 
-        logout, 
-        refreshUserData 
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        error,
+        login,
+        signup,
+        logout,
+        refreshUserData,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
