@@ -3,17 +3,28 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { Navbar } from "@/components/ui/navbar";
 import "@fontsource/poppins";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { confetti } from "tsparticles-confetti";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 export default function challenge3() {
-  const {refreshUserData} = useAuth();
+  const { refreshUserData } = useAuth();
   const [answer, setAnswer] = React.useState("");
+  const [attempts, setAttempts] = useState(0);
+  const maxAttempts = 2;
+
+  useEffect(() => {
+    const storedAttempts = localStorage.getItem("challenge3_attempts");
+    if (storedAttempts) {
+      setAttempts(parseInt(storedAttempts, 10));
+    }
+  }, []);
+
   const onSubmit = () => {
     if (!answer.length) {
       toast.error("Please enter a valid answer!");
@@ -38,10 +49,16 @@ export default function challenge3() {
           refreshUserData();
         } else {
           toast.error(data.message);
+          const newAttempts = attempts + 1;
+          setAttempts(newAttempts);
+          localStorage.setItem("challenge3_attempts", newAttempts.toString());
         }
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error("Incorrect flag! Try again!");
+        const newAttempts = attempts + 1;
+        setAttempts(newAttempts);
+        localStorage.setItem("challenge3_attempts", newAttempts.toString());
       });
   };
   return (
@@ -108,21 +125,24 @@ export default function challenge3() {
             className="rounded-lg border-2 border-teal-500 focus:ring-4 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200"
             onChange={(e) => setAnswer(e.target.value)}
             value={answer}
+            disabled={attempts >= maxAttempts}
           />
         </div>
         <button
-          className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-5 z-10"
+          className={`px-8 py-2 text-black font-bold text-lg rounded-2xl ${
+            attempts >= maxAttempts
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer"
+          } mb-5 z-10`}
           onClick={onSubmit}
+          disabled={attempts >= maxAttempts}
         >
-          Submit
+          {attempts >= maxAttempts ? "No Attempts Left" : "Submit"}
         </button>
+
         <br />
         <br />
-        {/* <Link href="/challenge2">
-          <button className="px-8 py-2 text-black font-bold text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer mb-10 ">
-            Go to challenge 2 <span className="font-bold">→</span>
-          </button>
-        </Link> */}
+
         <BackgroundBeams />
       </div>
     </div>
