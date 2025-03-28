@@ -1,26 +1,23 @@
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import "@fontsource/poppins";
 import React from "react";
 
-import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-import { useContext } from "react";
-import { useAuth } from "@/context/AuthContext";
 
 export const Navbar: React.FC = () => {
   const { user } = useAuth();
   return (
     <nav className="bg-black text-white p-4 flex items-center justify-between fixed z-40 font-[Poppins] top-0 left-0 w-full">
-      <div className="flex items-center space-x-2">
+      <Link href="/challenges" className="flex items-center space-x-2">
         <Image
           alt="logo"
           src={require("@/app/gdgnmit_logo.webp")}
           width={50}
           height={50}
         />
-      </div>
+      </Link>
       <div className="flex items-center space-x-6">
         <Link
           href="/challenges/challenge_1"
