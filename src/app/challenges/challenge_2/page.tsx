@@ -34,8 +34,8 @@ export default function challenge2() {
   
       setTimeout(() => {
         console.clear();
-      }, 1000);
-    }, 30000);
+      }, 2500);
+    }, 25000);
   }
 
   async function handleSubmit2(e: React.MouseEvent<HTMLButtonElement>) {
