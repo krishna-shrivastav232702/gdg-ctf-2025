@@ -68,8 +68,8 @@ export default function Challenge0() {
                   className="cursor-pointer underline"
                 >
                   inspect
-                </span>{" "}
-                the situation!
+                </span>
+                {" "}the situation!
                 <br />{" "}
                 <span style={{ display: "none" }}>
                   Write your answer backwards!
