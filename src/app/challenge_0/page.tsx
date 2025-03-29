@@ -13,20 +13,26 @@ export default function Challenge0() {
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
-  const correctAnswer = "nohtyp";
+    const correctAnswer = "nohtyp";
 
-  if (input.trim().toLowerCase() === correctAnswer) {
-    toast.success("Correct! Redirecting...");
-    localStorage.setItem("challenge0Solved", "true");
-    setTimeout(() => router.push("/signup")); 
-  } else {
-    toast.error("Incorrect answer! Try again.");
-  }
+    if (input.trim().toLowerCase() === correctAnswer) {
+      toast.success("Correct! Redirecting...");
+      localStorage.setItem("challenge0Solved", "true");
+      setTimeout(() => router.push("/signup"));
+    } else {
+      toast.error("Incorrect answer! Try again.");
+    }
 
+    if (input.trim().toLowerCase() === correctAnswer) {
+      toast.success("Correct! Redirecting...");
+      setTimeout(() => router.push("/signup"));
+    } else {
+      toast.error("Incorrect answer! Try again.");
+    }
   }
   return (
     <div className="w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased mb-20">
-      <Toaster/>
+      <Toaster />
       <div className="w-full p-4 flex flex-col items-center">
         <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 text-center font-[Poppins] font-bold py-4 pb-2">
           You think getting started is easy?
@@ -52,9 +58,24 @@ export default function Challenge0() {
           <GridItem
             area="col-span-10 col-start-2 row-span-1"
             title="Hint:"
-            description={<div>In crunch situations, sometimes all you gotta do is to <u>inspect</u> the situation!
-            <br/> <span style={{ display: "none" }}>Write your answer backwards!</span>
-            </div>}
+            description={
+              <div>
+                In crunch situations, sometimes all you gotta do is to{" "}
+                <span
+                  onClick={() =>
+                    console.log("The answer should be in reverse manner")
+                  }
+                  className="cursor-pointer underline"
+                >
+                  inspect
+                </span>{" "}
+                the situation!
+                <br />{" "}
+                <span style={{ display: "none" }}>
+                  Write your answer backwards!
+                </span>
+              </div>
+            }
           />
         </ul>
         <input
@@ -65,7 +86,10 @@ export default function Challenge0() {
           className="rounded-lg border-1 border-teal-500 focus:ring-2 focus:ring-teal-400 mx-auto max-w-md w-full relative z-10  bg-neutral-950 placeholder:text-neutral-500 text-white p-3 outline-none transition-all duration-200 mt-9"
         />
       </div>
-      <button onClick={handleSubmit} className="relative z-10 px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer">
+      <button
+        onClick={handleSubmit}
+        className="relative z-10 px-8 py-2 text-black font-bold font-[Poppins] text-lg rounded-2xl bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400 hover:to-green-400 hover:text-black cursor-pointer"
+      >
         Submit
       </button>
       <BackgroundBeams />
