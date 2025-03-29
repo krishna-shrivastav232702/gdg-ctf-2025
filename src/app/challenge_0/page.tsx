@@ -17,6 +17,7 @@ export default function Challenge0() {
 
   if (input.trim().toLowerCase() === correctAnswer) {
     toast.success("Correct! Redirecting...");
+    localStorage.setItem("challenge0Solved", "true");
     setTimeout(() => router.push("/signup")); 
   } else {
     toast.error("Incorrect answer! Try again.");

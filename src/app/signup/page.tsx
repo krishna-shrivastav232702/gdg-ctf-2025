@@ -10,6 +10,7 @@ import {useRouter} from "next/navigation";
 import toast, {Toaster} from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 export default function SignupFormDemo() {
   const {signup}=useAuth();
@@ -19,6 +20,13 @@ export default function SignupFormDemo() {
     email: "",
     password: "",
   })
+  useEffect(() => {
+    const challenge0Solved = localStorage.getItem("challenge0Solved");
+    
+    if (!challenge0Solved) {
+      router.push("/challenge_0");
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
