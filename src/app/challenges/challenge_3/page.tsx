@@ -105,7 +105,7 @@ export default function challenge3() {
                   </h3>
                   <br />
                   <Image
-                    src={require("../../imgchallenge3.png")}
+                    src={require("../../imgchallengeupdated (1).png")}
                     width={500}
                     height={150}
                     alt="A description of the image"
