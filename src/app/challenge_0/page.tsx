@@ -15,7 +15,7 @@ export default function Challenge0() {
 
   const correctAnswer = "nohtyp";
 
-  if (input.trim() === correctAnswer) {
+  if (input.trim().toLowerCase() === correctAnswer) {
     toast.success("Correct! Redirecting...");
     setTimeout(() => router.push("/signup")); 
   } else {

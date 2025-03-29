@@ -41,12 +41,6 @@ export const Navbar: React.FC = () => {
           
           className="hover:text-gray-400 cursor-pointer font-[Poppins]"
         >
-          Total points : {user?.totalPoints}
-        </div>
-        <div
-          
-          className="hover:text-gray-400 cursor-pointer font-[Poppins]"
-        >
           Flags Captured : {user?.capturedFlags}
         </div>
         <div className="flex items-center space-x-2 font-[Poppins]">
