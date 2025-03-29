@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="CodeSprint3.0"
           content="GDSC NMIT's CodeSprint 3.0 Capture The Flag"
         />
-        <link rel="icon" href="../../public/gdgnmit_logo.webp" />
+        <link rel="icon" href="../../public/gdglogo.webp" />
       </Head>
       <Component {...pageProps} />
     </>

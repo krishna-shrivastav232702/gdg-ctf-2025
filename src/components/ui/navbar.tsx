@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
       <Link href="/challenges" className="flex items-center space-x-2">
         <Image
           alt="logo"
-          src={require("@/app/gdgnmit_logo.webp")}
+          src={require("@/app/gdglogo.webp")}
           width={50}
           height={50}
         />
