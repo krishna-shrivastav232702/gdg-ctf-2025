@@ -15,7 +15,7 @@ import { useEffect } from "react";
 export default function challenge3() {
   const { user, refreshUserData } = useAuth();
   const [answer, setAnswer] = React.useState("");
-  const maxAttempts = 2;
+  const maxAttempts = 1;
 
   const isSubmitDisabled = (user?.challenge3Attempts ?? 0) >= maxAttempts;
 
@@ -137,7 +137,9 @@ export default function challenge3() {
         >
           {isSubmitDisabled ? "No Attempts Left" : "Submit"}
         </button>
-          <div className="text-white text-xl">Number of Attempts Left : {maxAttempts-(user?.challenge3Attempts || 0)}</div>
+        <div className="text-white text-xl">
+          Number of Attempts: {maxAttempts - (user?.challenge3Attempts || 0)}
+        </div>
         <br />
         <br />
 
