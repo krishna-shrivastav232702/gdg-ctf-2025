@@ -10,7 +10,6 @@ export async function POST(request: NextRequest) {
 
     const rebody = await request.json();
     const { email, password } = rebody;
-    console.log(rebody);
 
     const user = await User.findOne({ email });
     `         `;
@@ -24,13 +23,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
-    // const tokendata = {
-    //   id: user._id,
-    //   username: user.username,
-    //   email: user.email,
-    // };
-
-    //   jwt.sign(tokendata,process.env.TOKEN_SECRET!, {expiresIn: 3600});
 
     const response = NextResponse.json({
       message: "Login successful",

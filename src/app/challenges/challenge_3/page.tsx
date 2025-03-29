@@ -137,7 +137,7 @@ export default function challenge3() {
         >
           {isSubmitDisabled ? "No Attempts Left" : "Submit"}
         </button>
-
+          <div className="text-white text-xl">Number of Attempts Left : {maxAttempts-(user?.challenge3Attempts || 0)}</div>
         <br />
         <br />
 
