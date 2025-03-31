@@ -78,7 +78,7 @@ export default function challenge3() {
                 <div>
                   In this challenge, your task is to closely examine an image to
                   uncover a hidden flag. Pay attention to subtle details—what
-                  you’re looking for might not be visible at first glance. The
+                  you’re looking for might not be visible at first glance.{" "}The
                   answer lies where you least expect it!
                 </div>
               }
