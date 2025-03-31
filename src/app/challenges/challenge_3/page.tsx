@@ -76,14 +76,14 @@ export default function challenge3() {
               title="Hidden Clue Quest"
               description={
                 <div>
-                  In this challenge, you'll analyze an image to find a hidden
-                  flag. This type of challenge often involves technique like
-                  steganography. This guide will help you understand these
-                  concepts and the tools needed to uncover the hidden data.
+                  In this challenge, your task is to closely examine an image to
+                  uncover a hidden flag. Pay attention to subtle details—what
+                  you’re looking for might not be visible at first glance. The
+                  answer lies where you least expect it!
                 </div>
               }
             />
-            <GridItem
+            {/* <GridItem
               title="Description:"
               description={
                 <div>
@@ -95,7 +95,7 @@ export default function challenge3() {
                   other files, such as images, audio, or video.
                 </div>
               }
-            />
+            /> */}
             <GridItem
               title="Instructions:"
               description={
